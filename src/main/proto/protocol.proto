@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.bj58.arch.blockchain.baas.admin.protocol.entity";
+
+package proto;
+
+message Response {
+    uint32 code = 1;
+    string message = 2;
+    bytes data = 3;
+}
+
+
+message BlockchainUser {
+    uint64 id = 1;
+    uint64 appId = 2;
+    string name = 3;
+    string enrollmentSecret = 4;
+    bytes enrollment = 5;
+    uint32 type = 6;
+    uint64 orgId = 7;
+    uint64 createTime = 8;
+    uint64 modifyTime = 9;
+    BlockchainOrg org = 10;
+}
+
+message BlockchainOrg {
+    uint64 id = 1;
+    uint64 appId = 2;
+    string mspId = 3;
+    string name = 4;
+    string orgKey = 5;
+    string domainName = 6;
+    string caName = 7;
+    bytes clientKey = 8;
+    bytes clientCert = 9;
+    uint64 createTime = 10;
+    uint64 modifyTime = 11;
+    uint32 type = 12;
+}
+
+message BlockchainNode {
+    uint64 id = 1;
+    uint64 appId = 2;
+    string name = 3;
+    string ip = 4;
+    uint32 port = 5;
+    uint32 type = 6;
+    uint64 orgId = 7;
+    uint32 status = 8;
+    uint64 createTime = 9;
+    uint64 modifyTime = 10;
+    bool useTls = 11;
+    BlockchainStore nodeCrtStore = 12;
+}
+
+message BlockchainStore {
+    uint64 id = 1;
+    string name = 2;
+    string path = 3;
+    uint64 appId = 4;
+    uint64 orgId = 5;
+    bytes content = 6;
+    uint64 createTime = 7;
+    uint64 modifyTime = 8;
+}

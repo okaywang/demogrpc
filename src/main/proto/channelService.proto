@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.bj58.arch.blockchain.baas.admin.protocol.service";
+
+import "protocol.proto";
+package proto;
+
+service ChannelService {
+    rpc createChannel (CreateChannelRequest) returns (Response) {}
+    rpc orgPeersJoinChannel (OrgPeersJoinChannelRequest)  returns (Response) {}
+    rpc constructChannel (ConstructChannelRequest) returns (Response) {}
+    rpc getChannelConfig (GetChannelConfigRequest) returns (GetChannelConfigResponse) {}
+    rpc updateChannelConfig (UpdateChannelConfigRequest) returns  (Response) {}
+    rpc addNewOrg (AddNewOrgRequest) returns  (Response) {}
+    rpc queryBlockByTransactionID (QueryBlockByTransactionIDRequest) returns (QueryBlockResponse) {}
+    rpc queryBlockByHash(QueryBlockByHashRequest) returns (QueryBlockResponse) {}
+    rpc queryBlockByNumber(QueryBlockByNumberRequest) returns (QueryBlockResponse) {}
+    rpc queryBlockchainInfo(QueryBlockchainInfoRequest) returns (QueryBlockchainInfoResponse) {}
+}
+
+message CreateChannelRequest {
+    uint64 appId = 1;
+    uint64 orgId = 2;
+    uint64 peerAdminUserId = 3;
+    uint64 ordererNodeId = 4;
+    string channelName = 5;
+    uint64 channelConfigStoreId = 6;
+}
+
+message OrgPeersJoinChannelRequest {
+     uint64 appId = 1;
+     uint64 orgId = 2;
+     uint64 peerAdminUserId = 3;
+     string channelName = 4;
+     repeated uint64 ordererNodeIdList = 5;
+     repeated uint64 peerNodeIdList = 6;
+}
+
+message ConstructChannelRequest {
+     uint64 appId = 1;
+     uint64 orgId = 2;
+     uint64 peerAdminUserId = 3;
+     string channelName = 4;
+     uint64 channelType = 5;
+     repeated uint64 ordererNodeIdList = 6;
+     repeated uint64 peerNodeIdList = 7;
+}
+
+
+message GetChannelConfigRequest {
+      uint64 appId = 1;
+      uint64 orgId = 2;
+      uint64 peerAdminUserId = 3;
+      string channelName = 4;
+}
+
+message GetChannelConfigResponse {
+    uint32 code = 1;
+    string message = 2;
+    string channelConfig= 3;
+}
+
+message UpdateChannelConfigRequest {
+    uint64 appId = 1;
+    uint64 orgId = 2;
+    uint64 peerAdminUserId = 3;
+    uint64 ordererAdminUserId = 4;
+    string channelName = 5;
+    string oldConfig = 6;
+    string newConfig = 7;
+}
+
+
+message AddNewOrgRequest {
+    uint64 appId = 1;
+    uint64 orgId = 2;
+    uint64 peerAdminUserId = 3;
+    string channelName = 4;
+    bytes channalConfigUpdatedBytes = 5;
+    repeated bytes signedChannalConfigUpdatedBytes = 6;
+}
+
+message QueryBlockByTransactionIDRequest {
+      uint64 appId = 1;
+      uint64 orgId = 2;
+      uint64 peerAdminUserId = 3;
+      string channelName = 4;
+      string txId = 5;
+}
+
+message QueryBlockByHashRequest {
+      uint64 appId = 1;
+      uint64 orgId = 2;
+      uint64 peerAdminUserId = 3;
+      string channelName = 4;
+      bytes blockHash = 5;
+}
+
+message QueryBlockByNumberRequest {
+      uint64 appId = 1;
+      uint64 orgId = 2;
+      uint64 peerAdminUserId = 3;
+      string channelName = 4;
+      uint64 blockNumber = 5;
+}
+
+message QueryBlockchainInfoRequest {
+      uint64 appId = 1;
+      uint64 orgId = 2;
+      uint64 peerAdminUserId = 3;
+      string channelName = 4;
+}
+
+message QueryBlockResponse {
+      uint32 code = 1;
+      string message = 2;
+      bytes blockBytes= 3;
+}
+
+message QueryBlockchainInfoResponse {
+      uint32 code = 1;
+      string message = 2;
+      bytes blockchainInfoBytes= 3;
+}
